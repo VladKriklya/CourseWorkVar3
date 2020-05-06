@@ -1,0 +1,43 @@
+<nav class="navbar bg-dark">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['']">Online Shop</a>
+    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+      <li  routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['']">Якась інфа</a>
+      </li>
+      <li routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['']">Якась інфа</a>
+      </li>
+      <li  routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['s']">Якасть інфа</a>
+      </li>
+    </ul>
+
+    <div *ngIf="loggedIn()" class="dropdown" dropdown>
+        <div class="dropdown-item"></div>
+        <a class="dropdown-item" (click)="logout()"
+          ><i class="fa fa-sign-out"></i> Logout</a
+        >
+    </div>
+    
+    <ul *ngIf="!loggedIn()">
+      <li routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/registration']">Registration</a>
+      </li>
+      <li routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/login'] ">Login</a>
+      </li>
+    </ul>
+ 
+
+
+    <!--
+      Влад,не забудь добавить сюди функціонал для адміна. Обговоріть,яким чином будете вказувать ролі.Потом просто через *ngIf добав функц
+    -->
+
+  </div>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+

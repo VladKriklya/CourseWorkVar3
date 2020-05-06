@@ -7,8 +7,7 @@
         public double Price { get; set; }
         public string ImageURL { get; set; }
         public int Sales { get; set; }
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int Category { get; set; }
         public int AvailableItems { get; set; }
     }
 }
