@@ -44,6 +44,7 @@ namespace UIL
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string assemblyName = typeof(CupDataContext).Namespace;
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -67,9 +68,8 @@ namespace UIL
                     };
                 });
             services.AddDbContext<CupDataContext>(options =>
-                  options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
+                  options.UseSqlServer(Configuration.GetConnectionString("DataContext"), b => b.MigrationsAssembly("UIL")));
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

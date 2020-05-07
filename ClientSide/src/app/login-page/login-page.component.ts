@@ -20,6 +20,9 @@ export class LoginPageComponent implements OnInit {
 
   login() {
     this.authService.login(this.model).subscribe(
+      error => {
+        console.log(error);
+      },
       () => {
         this.router.navigate(['/']);
       }

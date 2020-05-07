@@ -16,6 +16,22 @@ namespace UIL.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        
+        private readonly IDatingRepository _repo;
+        private readonly IMapper _mapper;
+        public UserController(IDatingRepository repo, IMapper mapper)
+        {
+            _mapper = mapper;
+            _repo = repo;
+        }
+
+        [HttpGet("{id}", Name = "GetUser")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            var user = await _repo.GetUser(id);
+
+            var userToReturn = _mapper.Map<UserForRegister>(user);
+
+            return Ok(userToReturn);
+        }
     }
 }

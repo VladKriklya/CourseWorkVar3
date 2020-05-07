@@ -32,7 +32,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
-        //tokenGetter,
+        tokenGetter: (() => localStorage.getItem('token')),
         whitelistedDomains: ['localhost:44303'],
         blacklistedRoutes: ['localhost:44303/api/auth']
       }

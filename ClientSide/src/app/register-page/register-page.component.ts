@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent implements OnInit {
-  @Output() cancelRegister = new EventEmitter();
   user: User;
   registerForm: FormGroup;
 
@@ -34,7 +33,7 @@ export class RegisterPageComponent implements OnInit {
     this.registerForm = this.fb.group(
       {
         username: ['', Validators.required],
-        email: ['', Validators.required, Validators.email],
+        email: ['', [ Validators.required, Validators.email]],
         role: [null, Validators.required],
         address: ['', Validators.required],
         password: [
@@ -44,21 +43,19 @@ export class RegisterPageComponent implements OnInit {
             Validators.minLength(4),
             Validators.maxLength(8)
           ]
-        ],
-        confirmPassword: ['', Validators.required]
-      },
-      { validator: this.passwordMatchValidator }
-    );
+        ]
+      }
+    )
   }
-
+/*
   passwordMatchValidator(g: FormGroup) {
     return g.get('password').value === g.get('confirmPassword').value
-      ? null
+   //   ? null
       : { mismatch: true };
-  }
+  }*/
 
   register() {
-    if (this.registerForm.valid) {
+    //if (this.registerForm.valid) {
       this.user = Object.assign({}, this.registerForm.value);//используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект.
       this.authService.register(this.user).subscribe(
         () => {
@@ -67,11 +64,11 @@ export class RegisterPageComponent implements OnInit {
           });
         }
       );
-    }
+  
   }
 
    cancel() {
-    this.cancelRegister.emit(false);
+    this.router.navigate(['/']);
   }
 
 }
