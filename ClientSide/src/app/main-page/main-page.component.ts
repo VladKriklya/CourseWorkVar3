@@ -13,7 +13,8 @@ export class MainPageComponent implements OnInit {
   tempArray = [];
 
   constructor(
-    public itemService: ItemService
+    public itemService: ItemService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -34,5 +35,10 @@ export class MainPageComponent implements OnInit {
 
   getAllCups(){
     this.itemList = this.itemTempList;
+  }
+
+  cancel(){
+    this.router.navigate(['/']);
+
   }
 }

@@ -14,13 +14,10 @@
       <a [routerLink]="['/admin','orders']">Orders</a>
     </li>
     <li routerLinkActive="active">
-      <a>Logout</a>
+      <a [routerLink]="['/admin','edit']">Edit/Delete(Зміним)</a>
     </li>
-  </ul>
-
-  <ul>
     <li routerLinkActive="active">
-      <a [routerLink]="['/admin','login']">Login</a>
+      <a>Logout</a>
     </li>
   </ul>
 </nav>

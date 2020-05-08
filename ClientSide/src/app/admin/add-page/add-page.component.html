@@ -1,1 +1,69 @@
-<p>add-page works!</p>
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="addItem()">
+    <h2 class="text-center text-primary">Add Item</h2>
+    <hr />
+    
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" type="name" formControlName="name" placeholder="Name">
+      <div *ngIf="registerForm.get('name').touched && registerForm.get('name').invalid" class="validation">
+        <small class="error" *ngIf="registerForm.get('name').errors.required">Enter Price</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input id="price" type="price" formControlName="price" placeholder="Price">
+      <div *ngIf="registerForm.get('price').touched && registerForm.get('price').invalid" class="validation">
+        <small class="error" *ngIf="registerForm.get('email').errors.required">Enter Price</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="imageurl">Image</label>
+      <quill-editor formControlName="imageurl"></quill-editor>
+      <div *ngIf="registerForm.get('imageurl').touched && registerForm.get('imageurl').invalid" class="validation">
+        <small class="error" *ngIf="registerForm.get('imageurl').errors.required">Load Image</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="sales">Sales</label>
+      <input id="sales" type="sales" formControlName="sales" placeholder="Sales">
+      <div *ngIf="registerForm.get('sales').touched && registerForm.get('sales').invalid" class="validation">
+        <small class="error" *ngIf="registerForm.get('sales').errors.required">Enter Sales</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select formControlName="category">
+        <option value="1">Kitten</option>
+        <option value="2">Puppy</option>
+        <option value="3">Cartoon</option>
+        <option value="4">Name</option>
+        <option value="5">Holiday</option>
+        <option value="6">Others</option>
+      </select>
+      <div *ngIf="registerForm.get('sales').touched && registerForm.get('sales').invalid" class="validation">
+        <small class="error" *ngIf="registerForm.get('sales').errors.required">Enter Sales</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="availableitems">Available Items</label>
+      <input id="availableitems" type="availableitems" formControlName="availableitems" placeholder="Available items">
+      <div *ngIf="registerForm.get('availableitems').touched && registerForm.get('availableitems').invalid" class="validation">
+        <small class="error" *ngIf="registerForm.get('availableitems').errors.required">Enter Available Items</small>
+      </div>
+    </div>
+    <div class="form-group text-center">
+      <button class="btn btn-success" type="submit"
+      (click)="addItem()"
+      [disabled]="registerForm.invalid"
+      >
+        Add item
+      </button>
+      <button class="btn btn-danger" type="button" 
+        (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+

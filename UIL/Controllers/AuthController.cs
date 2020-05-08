@@ -6,13 +6,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.Configuration;
+using Microsoft.Extensions.Configuration;
 using BLL.Models;
 using BLL.UserModels;
 using DAL.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace UIL.Controllers
@@ -22,9 +21,9 @@ namespace UIL.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
-        private readonly IConfigurationSection _config; //объект IConfiguration по сути хранит все конфигурационные настройки в виде набора пар "ключ"-"значение".
+        private readonly IConfiguration _config; //объект IConfiguration по сути хранит все конфигурационные настройки в виде набора пар "ключ"-"значение".
         private readonly IMapper _mapper;// !!! позволяет проецировать одну модель на другую, что позволяет сократить объемы кода и упростить программу.
-        public AuthController(IAuthRepository repo, IConfigurationSection config, IMapper mapper)
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _mapper = mapper;
             _config = config;
@@ -43,11 +42,7 @@ namespace UIL.Controllers
 
             var createdUser = await _repo.Register(userToCreate, userForRegister.Password);
 
-            return CreatedAtRoute("GetUser", new
-            {
-                controller = "Users",
-                id = createdUser.Id
-            }, createdUser);
+            return Ok(createdUser);
         }
 
         [HttpPost("login")]

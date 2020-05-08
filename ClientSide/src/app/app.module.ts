@@ -13,6 +13,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    QuillModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: (() => localStorage.getItem('token')),

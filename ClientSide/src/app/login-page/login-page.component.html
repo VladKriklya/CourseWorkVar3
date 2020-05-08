@@ -18,5 +18,9 @@
       <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">
         Login
       </button>
+      <button class="btn btn-danger" type="button" 
+        (click)="cancel()">
+        Cancel
+      </button>
     </form>
 </div>

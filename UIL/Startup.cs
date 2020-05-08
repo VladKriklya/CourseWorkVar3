@@ -17,6 +17,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using AutoMapper;
+using BLL.UserModels;
+using BLL.Mappings;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace UIL
 {
@@ -52,7 +57,7 @@ namespace UIL
             services.AddControllers();
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
-            services.AddAutoMapper(typeof(DatingRepository).Assembly);
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -77,15 +82,24 @@ namespace UIL
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.Use(async (ctx, next) =>
+            else
             {
-                await next();
-                if (ctx.Response.StatusCode == 204)
+               app.UseExceptionHandler(builder =>
                 {
-                    ctx.Response.ContentLength = 0;
-                }
-            });
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
+            }
+
+           
 
             app.UseHttpsRedirection();
 

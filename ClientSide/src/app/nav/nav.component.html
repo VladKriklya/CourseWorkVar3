@@ -1,24 +1,22 @@
 <nav class="navbar bg-dark">
   <div class="container">
-    <a class="navbar-brand" [routerLink]="['']">Online Shop</a>
-    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li  routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['']">Якась інфа</a>
+    <a [routerLink]="['']">Online Shop</a>
+    
+    <ul *ngIf="loggedIn()">
+      <li routerLinkActive="active">
+        <a [routerLink]="['']">Якась інфа</a>
       </li>
       <li routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['']">Якась інфа</a>
+        <a [routerLink]="['']">Якась інфа</a>
       </li>
-      <li  routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['s']">Якасть інфа</a>
+      <li routerLinkActive="active">
+        <a [routerLink]="['']">Якасть інфа</a>
+      </li>
+      <li>
+        <a (click)="logout()">
+          Logout</a>
       </li>
     </ul>
-
-    <div *ngIf="loggedIn()" class="dropdown" dropdown>
-        <div class="dropdown-item"></div>
-        <a class="dropdown-item" (click)="logout()"
-          ><i class="fa fa-sign-out"></i> Logout</a
-        >
-    </div>
     
     <ul *ngIf="!loggedIn()">
       <li routerLinkActive="active">

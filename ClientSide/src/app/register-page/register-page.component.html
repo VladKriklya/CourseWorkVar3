@@ -41,26 +41,10 @@
       </small>
       </div>
     </div>
-   <!-- <div class="form-group">
-      <label for="confirmPassword">Confirm Password</label>
-      <input id="confirmPassword" type="password" formControlName="confirmPassword">
-      <div *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').invalid" class="validation">
-        <small class="error" *ngIf="registerForm.get('confirmPassword').errors.required">Enter ConfirmPassword</small>
-        <small class="error" *ngIf="registerForm.get('confirmPassword').errors.minlength">
-          Password must be at leat {{registerForm.get('confirmPassword').errors.minlength.requiredLength}} characters.
-          Now he {{registerForm.get('confirmPassword').errors.minlength.actualLength}}
-        </small>
-        <small class="error" *ngIf="registerForm.get('confirmPassword').errors.maxlength">
-          Password must be at leat {{registerForm.get('confirmPassword').errors.maxlength.requiredLength}} characters.
-          Now he {{registerForm.get('confirmPassword').errors.maxlength.actualLength}}
-      </small>
-      </div>
-    </div>
-    -->
-
     <div class="form-group text-center">
       <button class="btn btn-success" type="submit"
       (click)="register()"
+      [disabled]="registerForm.invalid"
       >
         Register
       </button>
@@ -72,4 +56,3 @@
   </form>
 </div>
 
-<!--[disabled]="registerForm.invalid"-->

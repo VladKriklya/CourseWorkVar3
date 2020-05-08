@@ -8,6 +8,7 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { OrdersPageComponent } from './orders-page/orders-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
 
 
 
@@ -16,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    QuillModule,
     RouterModule.forChild([
       { path: '', component: AdminLayoutComponent, children:[
         //{ path: '', redirectTo: '/admin/login', pathMatch: 'full' },
@@ -24,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         { path: 'add', component: AddPageComponent },
         { path: 'orders', component: OrdersPageComponent },
         { path: 'product/:id/edit', component: EditPageComponent },
+        { path:'edit', component: EditPageComponent },
         { path: '**', redirectTo: '/' }
       ]}
     ])

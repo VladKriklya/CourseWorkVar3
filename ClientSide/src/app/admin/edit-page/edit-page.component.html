@@ -1,1 +1,56 @@
-<p>edit-page works!</p>
+<div class="container">
+  <button type="button" (click)="getCups(1)">Kitten</button>
+  <button type="button" (click)="getCups(2)">Puppy</button>
+  <button type="button" (click)="getCups(3)">Cartoon</button>
+  <button type="button" (click)="getCups(4)">Name</button>
+  <button type="button" (click)="getCups(5)">Holiday</button>
+  <button type="button" (click)="getCups(6)">Others</button>
+  <button type="button" (click)="getAllCups()">All</button>
+  <div class="row">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Sales</th>
+          <th scope="col">Category</th>
+          <th scope="col">Available Items</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itemList; let i = index" scope="row">
+          <td>{{i + 1}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.sales}}</td>
+          <td>{{item.category}}</td>
+          <td>{{item.availableItems}}</td>
+          <td>
+            <a type="button" 
+            (click)="Edit(i)"
+            >
+            Edit</a>
+          </td>
+          <td>
+            <a type="button" 
+            (click)="Delete(i)"
+            >
+            <i class="fas fa-edit"></i>
+            Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--  id: number,
+  name: string,
+  price: number,
+  imageurl: string,
+  sales: number,
+  category: number,
+  availableitems: number-->

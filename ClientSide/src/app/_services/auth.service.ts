@@ -41,4 +41,12 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
+
+  isAuthenticated(){
+    if(this.currentUser.role == 4){
+      return true;
+    } else{
+      return false;
+    }
+  }
 }

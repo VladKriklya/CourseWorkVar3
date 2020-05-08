@@ -24,13 +24,26 @@ export class LoginPageComponent implements OnInit {
         console.log(error);
       },
       () => {
-        this.router.navigate(['/']);
+       // this.isAdmin()
+       this.router.navigate(['/']);
       }
-    );
+    );   
+  }
+
+  isAdmin(){
+    if(this.authService.isAuthenticated()){
+      this.router.navigate(['admin']);
+    } else{
+      this.router.navigate(['/']);
+    }
   }
 
   loggedIn() {
     return this.authService.loggedIn();
+  }
+
+  cancel() {
+    this.router.navigate(['/']);
   }
 
 }
