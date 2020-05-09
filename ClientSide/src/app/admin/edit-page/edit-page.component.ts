@@ -18,8 +18,7 @@ export class EditPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.itemService.getItems()
-      .subscribe(res => this.itemList = this.itemTempList = res as []);
+    this.getAllItems();
   }
 
   getCups(index : number){
@@ -49,15 +48,23 @@ export class EditPageComponent implements OnInit {
   }
 
   Delete(id: number){
-   /*if (id == null)
+    if (id == null)
       return;
-    else if (confirm('Are you sure to delete this record ?'))
+    else{
       this.itemService.deleteItem(id);
-    */
+      console.log(id);
+      this.getAllItems();
+    }
   }
 
-  searchItem(id){
 
+  searchItem(id){
+    console.log(id);
+  }
+
+  getAllItems(){
+    this.itemService.getItems()
+      .subscribe(res => this.itemList = this.itemTempList = res as []);
   }
 }
 

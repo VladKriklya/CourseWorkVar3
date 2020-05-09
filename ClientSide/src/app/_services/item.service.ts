@@ -15,14 +15,14 @@ export class ItemService {
   }
 
   addItem(item){
-    return this.http.post('https://localhost:44303/api/item', item);
+    return this.http.post('https://localhost:44303/api/item/', item);
   }
 
-  editItem(id){
-    return this.http.put('https://localhost:44303/api/item', id);
+  editItem(id, item){
+    return this.http.put('https://localhost:44303/api/item/'+ id, item);
   }
 
   deleteItem(id){
-    return this.http.delete('https://localhost:44303/api/item', id);
+    return this.http.delete('https://localhost:44303/api/item/'+ id);
   }
 }
