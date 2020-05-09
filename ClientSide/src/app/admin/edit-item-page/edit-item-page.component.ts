@@ -32,6 +32,7 @@ export class EditItemPageComponent implements OnInit {
   createEditForm() {
     this.editForm = this.fb.group(
       {
+        id: [this.itemService.currentItem.id, Validators.required],  
         name: [this.itemService.currentItem.name, Validators.required],
         price: [this.itemService.currentItem.price,  Validators.required],
         imageurl: [this.itemService.currentItem.imageurl, Validators.required],
@@ -45,16 +46,18 @@ export class EditItemPageComponent implements OnInit {
   editItem() {
      if (this.editForm.valid) {
       this.item = Object.assign({}, this.editForm.value);//используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект.
-      this.itemService.editItem(this.itemService.idItem, this.item);
-    /*  .subscribe(() => {
+      this.itemService.editItem(this.itemService.idItem, this.item)
+       .subscribe(() => {
         this.toastr.success('Successful Edit', 'Notification');
-      })*/
+        this.toastr.warning('You may need to refresh page to get updated information', 'ATTENTION');
+      })
       this.itemService.idItem = null;
       this.itemService.currentItem = null;
       this.item = null;
       this.router.navigate(['/admin','edit']);
      }
   }
+
 
   cancel(){
     this.router.navigate(['/admin','edit']);
