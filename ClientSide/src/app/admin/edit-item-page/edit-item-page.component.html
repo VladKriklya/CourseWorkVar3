@@ -1,34 +1,34 @@
 <div class="container">
-  <form [formGroup]="addForm" (ngSubmit)="addItem()">
-    <h2 class="text-center text-primary">Add Item</h2>
+  <form [formGroup]="editForm" (ngSubmit)="editItem()">
+    <h2 class="text-center text-primary">Edit Item</h2>
     <hr />
     
     <div class="form-group">
       <label for="name">Name</label>
       <input id="name" type="name" formControlName="name" placeholder="Name">
-      <div *ngIf="addForm.get('name').touched && addForm.get('name').invalid" class="validation">
-        <small class="error" *ngIf="addForm.get('name').errors.required">Enter Price</small>
+      <div *ngIf="editForm.get('name').touched && editForm.get('name').invalid" class="validation">
+        <small class="error" *ngIf="editForm.get('name').errors.required">Enter Price</small>
       </div>
     </div>
     <div class="form-group">
       <label for="price">Price</label>
       <input id="price" type="price" formControlName="price" placeholder="Price">
-      <div *ngIf="addForm.get('price').touched && addForm.get('price').invalid" class="validation">
-        <small class="error" *ngIf="addForm.get('email').errors.required">Enter Price</small>
+      <div *ngIf="editForm.get('price').touched && editForm.get('price').invalid" class="validation">
+        <small class="error" *ngIf="editForm.get('email').errors.required">Enter Price</small>
       </div>
     </div>
     <div class="form-group">
       <label for="imageurl">Image</label>
       <quill-editor formControlName="imageurl"></quill-editor>
-      <div *ngIf="addForm.get('imageurl').touched && addForm.get('imageurl').invalid" class="validation">
-        <small class="error" *ngIf="addForm.get('imageurl').errors.required">Load Image</small>
+      <div *ngIf="editForm.get('imageurl').touched && editForm.get('imageurl').invalid" class="validation">
+        <small class="error" *ngIf="editForm.get('imageurl').errors.required">Load Image</small>
       </div>
     </div>
     <div class="form-group">
       <label for="sales">Sales</label>
       <input id="sales" type="sales" formControlName="sales" placeholder="Sales">
-      <div *ngIf="addForm.get('sales').touched && addForm.get('sales').invalid" class="validation">
-        <small class="error" *ngIf="addForm.get('sales').errors.required">Enter Sales</small>
+      <div *ngIf="editForm.get('sales').touched && editForm.get('sales').invalid" class="validation">
+        <small class="error" *ngIf="editForm.get('sales').errors.required">Enter Sales</small>
       </div>
     </div>
     <div class="form-group">
@@ -41,23 +41,23 @@
         <option value="5">Holiday</option>
         <option value="6">Others</option>
       </select>
-      <div *ngIf="addForm.get('sales').touched && addForm.get('sales').invalid" class="validation">
-        <small class="error" *ngIf="addForm.get('sales').errors.required">Enter Sales</small>
+      <div *ngIf="editForm.get('sales').touched && editForm.get('sales').invalid" class="validation">
+        <small class="error" *ngIf="editForm.get('sales').errors.required">Enter Sales</small>
       </div>
     </div>
     <div class="form-group">
       <label for="availableitems">Available Items</label>
       <input id="availableitems" type="availableitems" formControlName="availableitems" placeholder="Available items">
-      <div *ngIf="addForm.get('availableitems').touched && addForm.get('availableitems').invalid" class="validation">
-        <small class="error" *ngIf="addForm.get('availableitems').errors.required">Enter Available Items</small>
+      <div *ngIf="editForm.get('availableitems').touched && editForm.get('availableitems').invalid" class="validation">
+        <small class="error" *ngIf="editForm.get('availableitems').errors.required">Enter Available Items</small>
       </div>
     </div>
     <div class="form-group text-center">
-      <button class="btn btn-success" type="submit"
-      (click)="addItem()"
-      [disabled]="addForm.invalid"
+      <button class="btn btn-success" type="button"
+      (click)="editItem()"
+      [disabled]="editForm.invalid"
       >
-        Add item
+        Edit item
       </button>
       <button class="btn btn-danger" type="button" 
         (click)="cancel()">

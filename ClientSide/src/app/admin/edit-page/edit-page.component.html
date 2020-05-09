@@ -30,15 +30,15 @@
           <td>{{item.availableItems}}</td>
           <td>
             <a type="button" 
-            (click)="searchItem(item.id)"
+            (click)="edit(item.id ,item)"
             >
-           Edit</a>
+            <i class="fas fa-edit"></i></a>
           </td>
           <td>
             <a type="button" 
             (click)="Delete(item.id)"
             >
-            Delete</a>
+            <i class="fas fa-trash"></i></a>
           </td>
         </tr>
       </tbody>

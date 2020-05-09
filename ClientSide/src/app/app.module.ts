@@ -14,6 +14,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { QuillModule } from 'ngx-quill';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [
@@ -23,7 +27,7 @@ import { QuillModule } from 'ngx-quill';
     ProductPageComponent,
     RegisterPageComponent,
     NavComponent,
-    LoginPageComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +35,10 @@ import { QuillModule } from 'ngx-quill';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      progressBar: true
+    }),
     QuillModule.forRoot(),
     JwtModule.forRoot({
       config: {

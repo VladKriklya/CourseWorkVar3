@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemService } from 'src/app/_services/item.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-page',
@@ -14,7 +15,8 @@ export class EditPageComponent implements OnInit {
 
   constructor(
     public itemService: ItemService,
-    public router: Router
+    public router: Router,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -40,26 +42,21 @@ export class EditPageComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  Edit(id: number){
-  /*  if (id == null)
-      return;
-    else if (confirm('Are you sure to delete this record ?'))
-     this.itemService.editItem(id);*/
+  edit(id, item){
+    this.itemService.idItem = id;
+    this.itemService.currentItem = item;
+    this.router.navigate(['/admin','edititem']);
   }
 
-  Delete(id: number){
-    if (id == null)
+  Delete(id){
+    if(id == null)
       return;
-    else{
-      this.itemService.deleteItem(id);
-      console.log(id);
-      this.getAllItems();
+    else if(confirm('Are you sure to delete this record ?')){
+      this.itemService.deleteItem(id).subscribe( res => {
+        this.toastr.warning('Successful Deleted', 'Notification');
+        this.getAllItems();
+      })
     }
-  }
-
-
-  searchItem(id){
-    console.log(id);
   }
 
   getAllItems(){

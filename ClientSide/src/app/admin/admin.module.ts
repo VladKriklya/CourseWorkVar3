@@ -9,6 +9,9 @@ import { EditPageComponent } from './edit-page/edit-page.component';
 import { OrdersPageComponent } from './orders-page/orders-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
+import { EditItemPageComponent } from './edit-item-page/edit-item-page.component';
+
+
 
 
 
@@ -27,6 +30,7 @@ import { QuillModule } from 'ngx-quill';
         { path: 'orders', component: OrdersPageComponent },
         { path: 'product/:id/edit', component: EditPageComponent },
         { path:'edit', component: EditPageComponent },
+        { path: 'edititem', component: EditItemPageComponent },
         { path: '**', redirectTo: '/' }
       ]}
     ])
@@ -40,6 +44,7 @@ import { QuillModule } from 'ngx-quill';
     DashboardPageComponent, 
     EditPageComponent,
     OrdersPageComponent,
+    EditItemPageComponent,
   ]
 })
 export class AdminModule{}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-page',
@@ -12,21 +13,18 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    public toastr: ToastrService
   ) {}
 
   ngOnInit() {
   }
 
   login() {
-    this.authService.login(this.model).subscribe(
-      error => {
-        console.log(error);
-      },
-      () => {
-       // this.isAdmin()
+    this.authService.login(this.model).subscribe( res => {
        this.router.navigate(['/']);
-      }
+       this.toastr.success('Successful Login', 'Notification');
+    }
     );   
   }
 

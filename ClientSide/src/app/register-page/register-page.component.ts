@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import {
@@ -8,6 +9,8 @@ import {
 } from '@angular/forms';
 import { User } from '../_models/user';
 import { Router } from '@angular/router';
+
+
 
 
 @Component({
@@ -22,7 +25,8 @@ export class RegisterPageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -51,13 +55,12 @@ export class RegisterPageComponent implements OnInit {
   register() {
      if (this.registerForm.valid) {
       this.user = Object.assign({}, this.registerForm.value);//используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект.
-      this.authService.register(this.user).subscribe(
-        () => {
+      this.authService.register(this.user).subscribe( res => {
           this.authService.login(this.user).subscribe(() => {
             this.router.navigate(['/']);
+            this.toastr.success('Successful Register', 'Notification');
           });
-        }
-      );
+        });
       }
   }
 

@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { ItemService } from './../../_services/item.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
@@ -16,20 +17,21 @@ import { Item } from 'src/app/_models/item';
 })
 export class AddPageComponent implements OnInit {
   item: Item;
-  registerForm: FormGroup;
+  addForm: FormGroup;
 
   constructor(
     private itemService: ItemService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public toastr: ToastrService
   ) {}
 
   ngOnInit() {
-    this.createRegisterForm();
+    this.createAddForm();
   }
 
-  createRegisterForm() {
-    this.registerForm = this.fb.group(
+  createAddForm() {
+    this.addForm = this.fb.group(
       {
         name: ['', Validators.required],
         price: [null,  Validators.required],
@@ -42,15 +44,17 @@ export class AddPageComponent implements OnInit {
   }
 
   addItem() {
-     if (this.registerForm.valid) {
-      this.item = Object.assign({}, this.registerForm.value);//используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект.
-      this.itemService.addItem(this.item).subscribe(
-        () => {
-        this.registerForm.reset();
-        }
+     if (this.addForm.valid) {
+      this.item = Object.assign({}, this.addForm.value);//используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект.
+      this.itemService.addItem(this.item).subscribe(res => {
+        this.toastr.success('Successful Add', 'Notification');
+      }
       )
+      this.addForm.reset();
     }
   }
+  
+
 
   cancel() {
     this.router.navigate(['/']);
