@@ -20,6 +20,7 @@ export class EditPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    window.document.body.style.background = 'radial-gradient(circle at 100%, #fff8fd, #fff8fd 50%, #deeaee 75%, #fff8fd 75%)';
     this.getAllItems();
   }
 
