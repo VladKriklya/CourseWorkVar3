@@ -1,8 +1,10 @@
+import { ItemService } from './../_services/item.service';
 import { AuthService } from './../_services/auth.service';
 
 import { OrderService } from './../_services/order.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Item } from '../_models/item';
 
 @Component({
   selector: 'app-order-page',
@@ -19,25 +21,43 @@ export class OrderPageComponent implements OnInit {
 
   constructor(
     public orderService: OrderService,
-    public authService: AuthService
+    public authService: AuthService,
+    public itemService: ItemService
   ) { }
 
   ngOnInit(): void {
    this.getAllItems();
    this.sumAllItems();
+   this.authService.currentUser = JSON.parse(localStorage.getItem('user'));
   }
 
   addOrder(){
     this.order =
      {
+       UserId: this.authService.currentUser.id,
        User: this.authService.currentUser,
        Items: this.orderService.cupsList,
        Date: this.date
       };
       console.log(this.order);
     this.orderService.postOrder(this.order);
+   /* this.changeItem();
+    this.arrayItem();
     this.orderService.cupsList = [];
-    localStorage.removeItem('ordersItems');
+    localStorage.removeItem('ordersItems');*/
+  }
+
+  changeItem(){
+    this.itemsList.forEach((el) => {
+      el.sales++;
+      el.availableitems--;
+    })
+  }
+
+  arrayItem(){
+    for(let i = 0; i < this.itemsList.length; i++){
+      this.itemService.editItem(this.itemsList[i].id ,this.itemsList[i])
+    }
   }
 
   sumAllItems(){
@@ -54,8 +74,7 @@ export class OrderPageComponent implements OnInit {
   }
 
   getAllItems(){
-   this.itemsList = JSON.parse((localStorage.getItem('ordersItems')));
-   this.itemsList 
+   this.itemsList = <Item[]>JSON.parse((localStorage.getItem('ordersItems')));
    console.log(this.itemsList);
   }
 }
