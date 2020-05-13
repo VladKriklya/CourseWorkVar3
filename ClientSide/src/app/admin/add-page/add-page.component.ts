@@ -35,7 +35,7 @@ export class AddPageComponent implements OnInit {
       {
         name: ['', Validators.required],
         price: [null,  Validators.required],
-        imageurl: ['', Validators.required],
+        imageUrl: ['', Validators.required],
         sales: [null, Validators.required],
         category: [null, Validators.required],
         availableitems: [null, Validators.required]
@@ -54,9 +54,8 @@ export class AddPageComponent implements OnInit {
     }
   }
   
-
-
   cancel() {
     this.router.navigate(['/']);
   }
+
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../_services/auth.service';
+import { OrderService } from './../_services/order.service';
+import { ToastrService } from 'ngx-toastr';
+import { Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
 import { ItemService } from '../_services/item.service';
 import { Router } from '@angular/router';
 
@@ -12,9 +15,14 @@ export class MainPageComponent implements OnInit {
   itemTempList = [];
   tempArray = [];
 
+
+
   constructor(
     public itemService: ItemService,
-    public router: Router
+    public router: Router,
+    public toastr: ToastrService,
+    public orderService: OrderService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +47,10 @@ export class MainPageComponent implements OnInit {
 
   cancel(){
     this.router.navigate(['/']);
+  }
 
+  addOrder(item){
+    this.toastr.success('Successful add item', 'Notification');
+    this.orderService.addItem(item);
   }
 }

@@ -12,6 +12,7 @@ export class EditPageComponent implements OnInit {
   itemList = [];
   itemTempList = [];
   tempArray = [];
+  index: number;
 
   constructor(
     public itemService: ItemService,
@@ -23,11 +24,12 @@ export class EditPageComponent implements OnInit {
     this.getAllItems();
   }
 
-  getCups(index : number){
+  getCups(ind: number){
+    this.index = ind;
     this.itemList = this.itemTempList;
     this.tempArray = [];
     this.itemList.forEach((el) => {
-      if(el.category == index){
+      if(el.category == ind){
         this.tempArray.push(el);
       }
     })
@@ -54,8 +56,9 @@ export class EditPageComponent implements OnInit {
     else if(confirm('Are you sure to delete this record ?')){
       this.itemService.deleteItem(id).subscribe( res => {
         this.toastr.warning('Successful Deleted', 'Notification');
-        this.getAllItems();
       })
+      this.getAllItems();
+      this.getCups(this.index);
     }
   }
 

@@ -18,9 +18,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="imageurl">Image</label>
-      <quill-editor formControlName="imageurl"></quill-editor>
-      <div *ngIf="addForm.get('imageurl').touched && addForm.get('imageurl').invalid" class="validation">
+      <label for="imageUrl">Image</label>
+      <quill-editor id ="imageUrl" formControlName="imageUrl"></quill-editor>
+      <div *ngIf="addForm.get('imageUrl').touched && addForm.get('imageUrl').invalid" class="validation">
         <small class="error" *ngIf="addForm.get('imageurl').errors.required">Load Image</small>
       </div>
     </div>

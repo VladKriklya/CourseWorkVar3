@@ -6,7 +6,6 @@ import { AdminLayoutComponent } from './shared/admin-layout/admin-layout.compone
 import { AddPageComponent } from './add-page/add-page.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
-import { OrdersPageComponent } from './orders-page/orders-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { EditItemPageComponent } from './edit-item-page/edit-item-page.component';
@@ -27,7 +26,6 @@ import { EditItemPageComponent } from './edit-item-page/edit-item-page.component
         { path: '', redirectTo: '/admin/add', pathMatch: 'full' },
         { path: 'dashboard', component: DashboardPageComponent },
         { path: 'add', component: AddPageComponent },
-        { path: 'orders', component: OrdersPageComponent },
         { path: 'product/:id/edit', component: EditPageComponent },
         { path:'edit', component: EditPageComponent },
         { path: 'edititem', component: EditItemPageComponent },
@@ -43,7 +41,6 @@ import { EditItemPageComponent } from './edit-item-page/edit-item-page.component
     AddPageComponent,
     DashboardPageComponent, 
     EditPageComponent,
-    OrdersPageComponent,
     EditItemPageComponent,
   ]
 })

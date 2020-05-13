@@ -16,6 +16,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { QuillModule } from 'ngx-quill';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderPageComponent } from './order-page/order-page.component';
 
 
 
@@ -27,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProductPageComponent,
     RegisterPageComponent,
     NavComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    OrderPageComponent
   ],
   imports: [
     BrowserModule,

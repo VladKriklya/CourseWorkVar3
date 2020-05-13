@@ -1,0 +1,24 @@
+<div class="container">
+  <button (click)="isActive = !isActive">Скрить корзину</button>
+  <button (click)="deleteItems()">Delete all items</button>
+  <div *ngIf="isActive">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of orderService.cupsList">
+            <td>{{item.name}}</td>
+            <td>{{item.sales}}</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Загальна вартість становить: {{allSum}}</p>
+  <button type="button" (click)="addOrder()">Відправити замовлення</button>
+</div>
+
+ 

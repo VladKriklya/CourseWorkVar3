@@ -35,7 +35,7 @@ export class EditItemPageComponent implements OnInit {
         id: [this.itemService.currentItem.id, Validators.required],  
         name: [this.itemService.currentItem.name, Validators.required],
         price: [this.itemService.currentItem.price,  Validators.required],
-        imageurl: [this.itemService.currentItem.imageurl, Validators.required],
+        imageurl: [this.itemService.currentItem.imageUrl, Validators.required],
         sales: [this.itemService.currentItem.sales, Validators.required],
         category: [this.itemService.currentItem.category, Validators.required],
         availableitems: [this.itemService.currentItem.availableitems, Validators.required]

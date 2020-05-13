@@ -1,3 +1,4 @@
+import { OrderPageComponent } from './order-page/order-page.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { NgModule } from '@angular/core';
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'product/:id', component: ProductPageComponent },
     { path: 'cart', component: CartPageComponent },
     { path: 'registration', component: RegisterPageComponent },
-    { path: 'login', component: LoginPageComponent }
+    { path: 'login', component: LoginPageComponent },
+    { path: 'order', component: OrderPageComponent },
   ]},
   { path: 'admin', loadChildren: () => import('src/app/admin/admin.module').then(m => m.AdminModule) },
   { path: '**', redirectTo: '/' }
