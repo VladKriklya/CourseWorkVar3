@@ -54,7 +54,7 @@ export class OrderPageComponent implements OnInit {
   }
 
   getAllItems(){
-   this.itemsList  = JSON.parse((localStorage.getItem('ordersItems')));
+   this.itemsList = JSON.parse((localStorage.getItem('ordersItems')));
    this.itemsList 
    console.log(this.itemsList);
   }

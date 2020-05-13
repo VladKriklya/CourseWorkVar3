@@ -1,0 +1,119 @@
+  <div class="header-middle">
+    <div class="container header-middle-cont">
+      <div class="toplogo">
+        <a href="index.html">
+          <img src="assets/icon2.png" alt="Cup Shop">
+        </a>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+    <h1 class="main-ttl"><span>Online Shop</span></h1>
+    <div class="section-sb">
+      <div class="section-sb-current">
+        <h3>Categories <span id="section-sb-toggle" class="section-sb-toggle"><span>
+                class="section-sb-ico"></span></span></h3>
+        <ul class="section-sb-list" id="section-sb-list">
+          <li>
+            <a (click)="getAllCups()">
+              <span class="categ-1-label">All Cups</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="getCups(1)">
+              <span class="categ-1-label">With kitten</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="getCups(2)">
+              <span class="categ-1-label">With puppies</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="getCups(3)">
+              <span class="categ-1-label">With cartoons</span>
+
+            </a>
+          </li>
+          <li>
+            <a (click)="getCups(4)">
+              <span class="categ-1-label">With names</span>
+
+            </a>
+          </li>
+          <li>
+            <a (click)="getCups(5)">
+              <span class="categ-1-label">Happy holidays</span>
+
+            </a>
+          </li>
+          <li>
+            <a (click)="getCups(6)">
+              <span class="categ-1-label">Others</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+
+    <div class="section-cont">
+
+      <div class="section-top">
+
+        <div class="section-sortby">
+          <select>
+
+            <option selected="selected">Sort by Popularity</option>
+            <option>Sort Ascending</option>
+            <option>Sort Descending</option>
+          </select>
+
+        </div>
+
+      </div>
+
+ 
+
+
+
+
+    <div class="prod-items section-items">
+      <b *ngFor="let item of itemList; let i = index" >
+        <div class="prod-i">
+
+          <div class="prod-i-top">
+            <a href="" class="prod-i-img">
+               <div [innerHTML]="item.imageURL">
+               </div>
+            </a>
+            <a (click)="addOrder(item)" class="prod-i-buy">Add to cart</a>
+            </div>
+
+          <h3>
+            <p>{{item.name}}</p>
+          </h3>
+
+          <p class="prod-i-price">
+            <b>{{item.price}}$  </b>
+          </p>
+
+          <div *ngIf="(item.sales != 0)">
+            <div class="prod-sticker">
+              <p class="prod-sticker-3">-{{item.sales}}%</p>
+            </div>
+            <p class="prod-i-price">
+              <del> {{ item.price * item.sales }}$</del>
+            </p>
+          </div>
+
+        </div>
+      </b>
+    </div>
+  </div>
