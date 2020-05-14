@@ -5,5 +5,5 @@ export interface Item {
   imageUrl: any,
   sales: number,
   category: number,
-  availableitems: number
+  availableItems: number
 }

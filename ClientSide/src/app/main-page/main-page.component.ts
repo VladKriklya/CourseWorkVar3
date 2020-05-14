@@ -47,7 +47,7 @@ export class MainPageComponent implements OnInit {
     })
     this.itemList = this.tempArray;
   }
-  
+
 
   getAllCups(){
     this.itemList = this.itemTempList;
