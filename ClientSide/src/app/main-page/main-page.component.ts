@@ -16,7 +16,7 @@ export class MainPageComponent implements OnInit {
   itemList = [];
   itemTempList = [];
   tempArray = [];
-
+  lastIndex = 0;
 
 
   constructor(
@@ -46,11 +46,24 @@ export class MainPageComponent implements OnInit {
       }
     })
     this.itemList = this.tempArray;
+    this.lastIndex = index;
   }
 
+  searchCups(str : string) {
+    if(this.lastIndex == 0) this.getAllCups();
+    else this.getCups(this.lastIndex);
+    let arr = [];
+    this.itemList.forEach((el) => {
+      if(el.name.includes(str)){
+        arr.push(el);
+      }
+    })
+    this.itemList = arr;
+  }
 
   getAllCups(){
     this.itemList = this.itemTempList;
+    this.lastIndex = 0;
   }
 
   cancel(){
