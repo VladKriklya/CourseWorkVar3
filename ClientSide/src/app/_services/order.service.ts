@@ -17,7 +17,7 @@ export class OrderService implements OnInit {
   }
 
   postOrder(order){
-    this.http.post("https://localhost:44303/api/order", order);
+    this.http.post("https://localhost:44303/api/order", order).subscribe(res => console.log(res));
   }
 
   addItem(item){

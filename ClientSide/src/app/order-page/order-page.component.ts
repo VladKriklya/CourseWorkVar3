@@ -1,5 +1,6 @@
 import { ItemService } from './../_services/item.service';
 import { AuthService } from './../_services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 import { OrderService } from './../_services/order.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -22,7 +23,8 @@ export class OrderPageComponent implements OnInit {
   constructor(
     public orderService: OrderService,
     public authService: AuthService,
-    public itemService: ItemService
+    public itemService: ItemService,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -37,27 +39,30 @@ export class OrderPageComponent implements OnInit {
        UserId: this.authService.currentUser.id,
        User: this.authService.currentUser,
        Items: this.orderService.cupsList,
-       Date: this.date
+       Date: this.date.toString()
       };
       console.log(this.order);
     this.orderService.postOrder(this.order);
-   /* this.changeItem();
+    this.changeItem();
     this.arrayItem();
     this.orderService.cupsList = [];
-    localStorage.removeItem('ordersItems');*/
+    localStorage.removeItem('ordersItems');
   }
 
   changeItem(){
     this.itemsList.forEach((el) => {
       el.sales++;
-      el.availableitems--;
+      el.availableItems--;
     })
   }
 
   arrayItem(){
-    for(let i = 0; i < this.itemsList.length; i++){
-      this.itemService.editItem(this.itemsList[i].id ,this.itemsList[i])
-    }
+   this.itemsList.forEach((el) => {
+     let item = { id: el.id, name: el.name, price: el.price, imageURL: el.imageURL, sales: el.sales, 
+      category: el.category, availableItems: el.availableItems};
+     this.itemService.editItem(el.id, item).subscribe(() =>
+        this.toastr.success('Successful  item', 'Notification'));
+   })
   }
 
   sumAllItems(){

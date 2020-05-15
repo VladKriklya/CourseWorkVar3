@@ -23,6 +23,7 @@ export class ItemService {
   }
 
   editItem(id: number, item){
+    console.log(item);
     return this.http.put('https://localhost:44303/api/item/'+ id, item);
   }
 
