@@ -39,14 +39,16 @@ export class OrderPageComponent implements OnInit {
        UserId: this.authService.currentUser.id,
        User: this.authService.currentUser,
        Items: this.orderService.cupsList,
-       Date: this.date
+       Date: this.date.toString()
       };
+
     this.changeItem();
     this.arrayItem();
     this.itemsList = [];
     this.orderService.cupsList = [];
     localStorage.removeItem('ordersItems');
     this.toastr.success('Successful sending', 'Reload the page')
+
   }
 
   changeItem(){
@@ -73,7 +75,7 @@ export class OrderPageComponent implements OnInit {
     })
   }
 
-  sumAllItems(){
+   sumAllItems(){
     this.allSum = 0;
     this.itemsList.forEach(el => {
       this.allSum += el.price;

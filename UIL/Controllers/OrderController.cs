@@ -26,7 +26,7 @@ namespace UIL.Controllers
             _context.Orders.Add(item);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrder", new { id = item.Id }, item);
+            return Ok(item);
         }
     }
 }
