@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace UIL.Migrations
 {
     [DbContext(typeof(CupDataContext))]
-    [Migration("20200514163658_AddUserForList")]
-    partial class AddUserForList
+    [Migration("20200519084830_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

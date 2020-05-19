@@ -53,4 +53,13 @@ export class AuthService implements OnInit {
      return false;
    }
   }
+
+   isAdmin(){
+    let tempUser = JSON.parse(localStorage.getItem('user'));
+    if(tempUser.role == 4){
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

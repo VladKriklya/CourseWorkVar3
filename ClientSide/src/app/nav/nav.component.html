@@ -4,20 +4,17 @@
     
     <ul *ngIf="loggedIn()">
       <li routerLinkActive="active">
-        <a [routerLink]="['order']">Корзина</a>
+        <a [routerLink]="['order']">Basket</a>
       </li>
-      <li routerLinkActive="active">
-        <a [routerLink]="['']">Якась інфа</a>
-      </li>
-      <li routerLinkActive="active">
-        <a [routerLink]="['']">Якасть інфа</a>
+      <li *ngIf="authService.isAdmin()" routerLinkActive="active">
+        <a [routerLink]="['admin']">Admin functionality</a>
       </li>
       <li>
         <a (click)="logout()">
           Logout</a>
       </li>
     </ul>
-    
+
     <ul *ngIf="!loggedIn()">
       <li routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/registration']">Registration</a>
@@ -26,13 +23,6 @@
         <a class="nav-link" [routerLink]="['/login'] ">Login</a>
       </li>
     </ul>
- 
-
-
-    <!--
-      Влад,не забудь добавить сюди функціонал для адміна. Обговоріть,яким чином будете вказувать ролі.Потом просто через *ngIf добав функц
-    -->
-
   </div>
 </nav>
 <div class="container">

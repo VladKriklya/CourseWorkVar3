@@ -55,7 +55,7 @@ export class AddPageComponent implements OnInit {
   }
   
   cancel() {
-    this.router.navigate(['/']);
+    this.router.navigate(['admin','edit']);
   }
 
 }

@@ -5,6 +5,7 @@ import { OrderService } from './../_services/order.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Item } from '../_models/item';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-order-page',
@@ -22,7 +23,8 @@ export class OrderPageComponent implements OnInit {
   constructor(
     public orderService: OrderService,
     public authService: AuthService,
-    public itemService: ItemService
+    public itemService: ItemService,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -39,12 +41,12 @@ export class OrderPageComponent implements OnInit {
        Items: this.orderService.cupsList,
        Date: this.date
       };
-      console.log(this.order);
-    this.orderService.postOrder(this.order);
-   /* this.changeItem();
+    this.changeItem();
     this.arrayItem();
+    this.itemsList = [];
     this.orderService.cupsList = [];
-    localStorage.removeItem('ordersItems');*/
+    localStorage.removeItem('ordersItems');
+    this.toastr.success('Successful sending', 'Reload the page')
   }
 
   changeItem(){
@@ -55,9 +57,9 @@ export class OrderPageComponent implements OnInit {
   }
 
   arrayItem(){
-    for(let i = 0; i < this.itemsList.length; i++){
-      this.itemService.editItem(this.itemsList[i].id ,this.itemsList[i])
-    }
+    this.itemsList.forEach((el) => {
+      this.itemService.editItem(el.id, el);//фіксону
+    })
   }
 
   sumAllItems(){
@@ -71,10 +73,11 @@ export class OrderPageComponent implements OnInit {
     localStorage.removeItem('ordersItems');
     this.getAllItems();
     this.sumAllItems();
+    this.toastr.success('Successful delete', 'Reload the page')
   }
 
   getAllItems(){
-   this.itemsList = <Item[]>JSON.parse((localStorage.getItem('ordersItems')));
-   console.log(this.itemsList);
+     if((localStorage.getItem('ordersItems') != null))
+    this.itemsList = <Item[]>JSON.parse((localStorage.getItem('ordersItems')));
   }
 }

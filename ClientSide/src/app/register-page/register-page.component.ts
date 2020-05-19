@@ -1,4 +1,3 @@
-import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import {
@@ -25,8 +24,7 @@ export class RegisterPageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder,
-    public toastr: ToastrService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -58,7 +56,6 @@ export class RegisterPageComponent implements OnInit {
       this.authService.register(this.user).subscribe( res => {
           this.authService.login(this.user).subscribe(() => {
             this.router.navigate(['/']);
-            this.toastr.success('Successful Register', 'Notification');
           });
         });
       }

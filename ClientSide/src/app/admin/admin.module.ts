@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 
 import { AdminLayoutComponent } from './shared/admin-layout/admin-layout.component';
 import { AddPageComponent } from './add-page/add-page.component';
-import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { EditItemPageComponent } from './edit-item-page/edit-item-page.component';
+import { BlockGuard } from '../_services/block.guard';
 
 
 
@@ -22,13 +22,11 @@ import { EditItemPageComponent } from './edit-item-page/edit-item-page.component
     QuillModule,
     RouterModule.forChild([
       { path: '', component: AdminLayoutComponent, children:[
-        //{ path: '', redirectTo: '/admin/login', pathMatch: 'full' },
-        { path: '', redirectTo: '/admin/add', pathMatch: 'full' },
-        { path: 'dashboard', component: DashboardPageComponent },
-        { path: 'add', component: AddPageComponent },
-        { path: 'product/:id/edit', component: EditPageComponent },
-        { path:'edit', component: EditPageComponent },
-        { path: 'edititem', component: EditItemPageComponent },
+        { path: '', redirectTo: '/admin/edit', pathMatch: 'full' },
+        { path: 'add', component: AddPageComponent, canActivate: [BlockGuard]},
+        { path: 'product/:id/edit', component: EditPageComponent, canActivate: [BlockGuard] },
+        { path:'edit', component: EditPageComponent, canActivate: [BlockGuard]},
+        { path: 'edititem', component: EditItemPageComponent, canActivate: [BlockGuard] },
         { path: '**', redirectTo: '/' }
       ]}
     ])
@@ -39,7 +37,6 @@ import { EditItemPageComponent } from './edit-item-page/edit-item-page.component
   declarations: [
     AdminLayoutComponent,
     AddPageComponent,
-    DashboardPageComponent, 
     EditPageComponent,
     EditItemPageComponent,
   ]
