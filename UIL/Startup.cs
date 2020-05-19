@@ -22,6 +22,8 @@ using BLL.Mappings;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using DAL.Data.Interfaces;
+using DAL.Data.Repository;
 
 namespace UIL
 {
@@ -49,7 +51,7 @@ namespace UIL
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string assemblyName = typeof(CupDataContext).Namespace;
+            string assemblyName = typeof(RepositoryContext).Namespace;
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -58,9 +60,9 @@ namespace UIL
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IDatingRepository, DatingRepository>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+              services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -72,7 +74,7 @@ namespace UIL
                         ValidateAudience = false
                     };
                 });
-            services.AddDbContext<CupDataContext>(options =>
+            services.AddDbContext<RepositoryContext>(options =>
                   options.UseSqlServer(Configuration.GetConnectionString("DataContext"), b => b.MigrationsAssembly("UIL")));
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

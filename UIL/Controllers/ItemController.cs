@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BLL.Models;
 using DAL.Data;
+using DAL.Data.Interfaces;
 
 namespace UIL.Controllers
 {
@@ -14,18 +15,19 @@ namespace UIL.Controllers
     [ApiController]
     public class ItemController : ControllerBase
     {
-        private readonly CupDataContext _context;
+        private readonly IRepositoryManager _context;
+        private readonly IItemRepository item;
 
-        public ItemController(CupDataContext context)
+        public ItemController(IRepositoryManager context)
         {
             _context = context;
         }
 
         // GET: api/Item
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+        public async Task<ActionResult<IEnumerable<Item>>> GetItems() 
         {
-            return await _context.Items.ToListAsync();
+            return _context.Items.
         }
 
         // GET: api/Item/5

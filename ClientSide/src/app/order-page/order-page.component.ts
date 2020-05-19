@@ -52,13 +52,24 @@ export class OrderPageComponent implements OnInit {
   changeItem(){
     this.itemsList.forEach((el) => {
       el.sales++;
-      el.availableitems--;
+      el.availableItems--;
     })
   }
 
   arrayItem(){
     this.itemsList.forEach((el) => {
-      this.itemService.editItem(el.id, el);//фіксону
+      let tempItem = {
+         id: el.id,
+         name: el.name, 
+         price: el.price, 
+         imageURL: el.imageURL, 
+         sales: el.sales, 
+         category: el.category,
+         availableItems: el.availableItems
+        }
+      this.itemService.editItem(el.id, tempItem).subscribe((el) => {
+        console.log(el);
+      })
     })
   }
 

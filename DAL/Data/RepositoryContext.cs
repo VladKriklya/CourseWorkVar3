@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Data
 {
-    public class CupDataContext : DbContext
+    public class RepositoryContext : DbContext
     {
-        public CupDataContext(DbContextOptions<CupDataContext> options) : base(options)
+        public RepositoryContext(DbContextOptions options)
+        : base(options)
         { }
+
 
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
