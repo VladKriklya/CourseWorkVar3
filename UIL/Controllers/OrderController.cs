@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BLL.Models;
-using DAL.Data;
-using Microsoft.AspNetCore.Http;
+using DAL.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UIL.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly CupDataContext _context;
+        private readonly IRepositoryManager _context;
 
-        public OrderController(CupDataContext context)
+        public OrderController(IRepositoryManager context)
         {
             _context = context;
         }
@@ -23,8 +21,8 @@ namespace UIL.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> PostItem(Order item)
         {
-            _context.Orders.Add(item);
-            await _context.SaveChangesAsync();
+            _context.Orders.CreateOrder(item);
+            await _context.SaveAsync();
 
             return Ok(item);
         }

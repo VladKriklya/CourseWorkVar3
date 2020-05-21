@@ -9,5 +9,7 @@ namespace DAL.Data.Repository
         : base(repositoryContext)
         {
         }
+
+        public void CreateOrder(Order order) => Create(order);
     }
 }

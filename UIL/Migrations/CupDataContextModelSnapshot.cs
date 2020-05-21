@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace UIL.Migrations
 {
-    [DbContext(typeof(CupDataContext))]
+    [DbContext(typeof(RepositoryContext))]
     partial class CupDataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -130,7 +130,7 @@ namespace UIL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserForList");
+                    b.ToTable("UserForLists");
                 });
 
             modelBuilder.Entity("BLL.Models.Item", b =>

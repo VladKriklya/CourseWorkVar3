@@ -1,7 +1,6 @@
 ﻿using BLL.Models;
 using DAL.Data.Repository;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 using System.Threading.Tasks;
 
 namespace DAL.Data
@@ -71,5 +70,7 @@ namespace DAL.Data
 
              return false;
          }
+
+        public void CreateUser(User user) => Create(user);
     }
 }

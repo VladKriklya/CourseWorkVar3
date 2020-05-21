@@ -56,7 +56,8 @@ export class EditPageComponent implements OnInit {
       return;
     else if(confirm('Are you sure to delete this record ?')){
       this.itemService.deleteItem(id).subscribe( res => {
-        this.toastr.warning('Successful Deleted', 'Notification');
+        this.toastr.success('Successful Delete', 'Notification');
+        this.toastr.warning('You may need to refresh page to get updated information', 'ATTENTION');
       })
       this.getAllItems();
       this.getCups(this.index);

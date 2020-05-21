@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace UIL.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20200519084830_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200521083346_AddUserForList")]
+    partial class AddUserForList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,7 +132,7 @@ namespace UIL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserForList");
+                    b.ToTable("UserForLists");
                 });
 
             modelBuilder.Entity("BLL.Models.Item", b =>

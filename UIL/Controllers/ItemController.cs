@@ -1,89 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using BLL.Models;
-using DAL.Data;
 using DAL.Data.Interfaces;
+using BLL.Services.InterfacesServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UIL.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ItemController : ControllerBase
     {
         private readonly IRepositoryManager _context;
-        private readonly IItemRepository item;
+        private readonly ILoggerManager _logger;
 
-        public ItemController(IRepositoryManager context)
+        public ItemController(IRepositoryManager context, ILoggerManager logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Item
+        [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItems() 
+        public async Task<IActionResult> GetItems() 
         {
-            return _context.Items.
+            var items = await _context.Items.GetAllItemsAsync(trackChanges: false);
+            return Ok(items);
         }
 
         // GET: api/Item/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> GetItem(int id)
         {
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Items.GetItemAsync(id, trackChanges: false);
 
             if (item == null)
             {
+                _logger.LogInfo($"Item with id: {id} doesn't exist in the database.");
                 return NotFound();
             }
 
-            return item;
+            return Ok(item);
         }
 
         // PUT: api/Item/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutItem(int id, Item item)
         {
+            if(item == null)
+            {
+                _logger.LogError("Itemo object sent from client is null.");
+                return BadRequest("Item object is null");
+            }
+
             if (id != item.Id)
             {
+                _logger.LogInfo($"Item with id: {id} doesn't exist in the database.");
                 return BadRequest();
             }
 
-            _context.Entry(item).State = EntityState.Modified;
+            var tempItem = await _context.Items.GetItemAsync(id, trackChanges: false);
 
-            try
+            if (tempItem == null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                _logger.LogInfo($"Item with id: {id} doesn't exist in the database.");
+                return NotFound();
             }
 
+            _context.Items.UpdateItem(item);
+            await _context.SaveAsync();
+  
             return NoContent();
         }
 
-        // POST: api/Item
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+     
         [HttpPost]
         public async Task<ActionResult<Item>> PostItem(Item item)
         {
-            _context.Items.Add(item);
-            await _context.SaveChangesAsync();
+            _context.Items.CreateItem(item);
+            await _context.SaveAsync();
 
             return CreatedAtAction("GetItem", new { id = item.Id }, item);
         }
@@ -92,21 +91,17 @@ namespace UIL.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Item>> DeleteItem(int id)
         {
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Items.GetItemAsync(id, trackChanges: false);
             if (item == null)
             {
+                _logger.LogInfo($"Item with id: {id} doesn't exist in the database.");
                 return NotFound();
             }
 
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync();
+            _context.Items.DeleteItem(item);
+            await _context.SaveAsync();
 
-            return item;
-        }
-
-        private bool ItemExists(int id)
-        {
-            return _context.Items.Any(e => e.Id == id);
+            return NoContent();
         }
     }
 }
