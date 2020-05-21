@@ -3,35 +3,38 @@ using Microsoft.AspNetCore.Mvc;
 using BLL.Models;
 using DAL.Data.Interfaces;
 using BLL.Services.InterfacesServices;
-using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using System.Collections.Generic;
+using BLL.DataTransferObjects;
 
 namespace UIL.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class ItemController : ControllerBase
     {
         private readonly IRepositoryManager _context;
         private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
-        public ItemController(IRepositoryManager context, ILoggerManager logger)
+        public ItemController(IRepositoryManager context, ILoggerManager logger, IMapper mapper)
         {
             _context = context;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // GET: api/Item
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetItems() 
         {
             var items = await _context.Items.GetAllItemsAsync(trackChanges: false);
-            return Ok(items);
+            var itemsDto = _mapper.Map<IEnumerable<ItemDto>>(items);
+            return Ok(itemsDto);
         }
 
         // GET: api/Item/5
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> GetItem(int id)
         {
@@ -43,7 +46,9 @@ namespace UIL.Controllers
                 return NotFound();
             }
 
-            return Ok(item);
+            var itemDto = _mapper.Map<ItemDto>(item);
+
+            return Ok(itemDto);
         }
 
         // PUT: api/Item/5

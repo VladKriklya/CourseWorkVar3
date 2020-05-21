@@ -14,6 +14,7 @@ using NLog;
 using System.IO;
 using UIL.Extensions;
 using BLL.Services.InterfacesServices;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace UIL
 {
@@ -57,7 +58,7 @@ namespace UIL
                 app.UseHsts();
             }
 
-            app.ConfigureExceptionHandler(logger);
+          //  app.ConfigureExceptionHandler(logger);
 
             app.UseHttpsRedirection();
 

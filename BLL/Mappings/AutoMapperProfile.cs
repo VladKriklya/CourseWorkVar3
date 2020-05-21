@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BLL.DataTransferObjects;
 using BLL.Models;
 using BLL.UserModels;
 
@@ -11,6 +12,7 @@ namespace BLL.Mappings
             CreateMap<User, UserForList>();
             CreateMap<User, UserForRegister>();
             CreateMap<UserForRegister, User>();
+            CreateMap<Item, ItemDto>();
         }
     }
 }
