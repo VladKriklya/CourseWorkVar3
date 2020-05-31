@@ -6,6 +6,9 @@ using BLL.Services.InterfacesServices;
 using AutoMapper;
 using System.Collections.Generic;
 using BLL.DataTransferObjects;
+using UIL.ActionFilters;
+using BLL.RequestParameters;
+using Newtonsoft.Json;
 
 namespace UIL.Controllers
 {
@@ -27,9 +30,13 @@ namespace UIL.Controllers
 
         // GET: api/Item
         [HttpGet]
-        public async Task<IActionResult> GetItems() 
+        public async Task<IActionResult> GetItems([FromQuery] ItemParameters itemParameters)
         {
-            var items = await _context.Items.GetAllItemsAsync(trackChanges: false);
+            var items = await _context.Items.GetAllItemsAsync(itemParameters, trackChanges: false);
+
+            Response.Headers.Add("X-Pagination",
+            JsonConvert.SerializeObject(items.MetaData));
+
             var itemsDto = _mapper.Map<IEnumerable<ItemDto>>(items);
             return Ok(itemsDto);
         }
@@ -52,31 +59,14 @@ namespace UIL.Controllers
         }
 
         // PUT: api/Item/5
-
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(int id, Item item)
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidateItemExistsAttribute))]
+        public async Task<IActionResult> PutItem(int id, [FromBody]ItemForUpdateDto item)
         {
-            if(item == null)
-            {
-                _logger.LogError("Itemo object sent from client is null.");
-                return BadRequest("Item object is null");
-            }
+            var itemEntity = HttpContext.Items["item"] as Item;
 
-            if (id != item.Id)
-            {
-                _logger.LogInfo($"Item with id: {id} doesn't exist in the database.");
-                return BadRequest();
-            }
-
-            var tempItem = await _context.Items.GetItemAsync(id, trackChanges: false);
-
-            if (tempItem == null)
-            {
-                _logger.LogInfo($"Item with id: {id} doesn't exist in the database.");
-                return NotFound();
-            }
-
-            _context.Items.UpdateItem(item);
+            _mapper.Map(item, itemEntity);
             await _context.SaveAsync();
   
             return NoContent();
@@ -84,24 +74,25 @@ namespace UIL.Controllers
 
      
         [HttpPost]
-        public async Task<ActionResult<Item>> PostItem(Item item)
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<ActionResult<Item>> PostItem([FromBody]ItemForCreationDto item)
         {
-            _context.Items.CreateItem(item);
+            var itemEntity = _mapper.Map<Item>(item);
+
+            _context.Items.CreateItem(itemEntity);
             await _context.SaveAsync();
 
-            return CreatedAtAction("GetItem", new { id = item.Id }, item);
+            var itemToReturn = _mapper.Map<ItemDto>(itemEntity);
+
+            return CreatedAtAction("GetItem", new { id = itemToReturn.Id }, item);
         }
 
         // DELETE: api/Item/5
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(ValidateItemExistsAttribute))]
         public async Task<ActionResult<Item>> DeleteItem(int id)
         {
-            var item = await _context.Items.GetItemAsync(id, trackChanges: false);
-            if (item == null)
-            {
-                _logger.LogInfo($"Item with id: {id} doesn't exist in the database.");
-                return NotFound();
-            }
+            var item = HttpContext.Items["item"] as Item;
 
             _context.Items.DeleteItem(item);
             await _context.SaveAsync();

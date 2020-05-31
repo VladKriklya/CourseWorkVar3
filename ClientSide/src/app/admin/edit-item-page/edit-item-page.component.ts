@@ -45,7 +45,7 @@ export class EditItemPageComponent implements OnInit {
 
   editItem() {
      if (this.editForm.valid) {
-      this.item = Object.assign({}, this.editForm.value);//используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект.
+      this.item = Object.assign({}, this.editForm.value);
       this.itemService.editItem(this.itemService.idItem, this.item)
        .subscribe(() => {
         this.toastr.success('Successful Edit', 'Notification');
@@ -57,7 +57,6 @@ export class EditItemPageComponent implements OnInit {
       this.router.navigate(['/admin','edit']);
      }
   }
-
 
   cancel(){
     this.router.navigate(['/admin','edit']);

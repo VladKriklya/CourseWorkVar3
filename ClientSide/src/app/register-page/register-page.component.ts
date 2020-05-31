@@ -52,7 +52,7 @@ export class RegisterPageComponent implements OnInit {
 
   register() {
      if (this.registerForm.valid) {
-      this.user = Object.assign({}, this.registerForm.value);//используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект.
+      this.user = Object.assign({}, this.registerForm.value);
       this.authService.register(this.user).subscribe( res => {
           this.authService.login(this.user).subscribe(() => {
             this.router.navigate(['/']);

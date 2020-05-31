@@ -33,7 +33,7 @@ export class AddPageComponent implements OnInit {
   createAddForm() {
     this.addForm = this.fb.group(
       {
-        name: ['', Validators.required],
+        name: ['', [Validators.required, Validators.maxLength(20)]],
         price: [null,  Validators.required],
         imageUrl: ['', Validators.required],
         sales: [null, Validators.required],
@@ -45,7 +45,7 @@ export class AddPageComponent implements OnInit {
 
   addItem() {
      if (this.addForm.valid) {
-      this.item = Object.assign({}, this.addForm.value);//используется для копирования значений всех собственных перечисляемых свойств из одного или более исходных объектов в целевой объект.
+      this.item = Object.assign({}, this.addForm.value);
       this.itemService.addItem(this.item).subscribe(res => {
         this.toastr.success('Successful Add', 'Notification');
       }

@@ -13,6 +13,9 @@ namespace BLL.Mappings
             CreateMap<User, UserForRegister>();
             CreateMap<UserForRegister, User>();
             CreateMap<Item, ItemDto>();
+            CreateMap<ItemForCreationDto, Item>();
+            CreateMap<OrderForCreationDto, Order>();
+            CreateMap<ItemForUpdateDto, Item>();
         }
     }
 }

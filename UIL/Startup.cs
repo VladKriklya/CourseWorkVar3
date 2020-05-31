@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +13,8 @@ using NLog;
 using System.IO;
 using UIL.Extensions;
 using BLL.Services.InterfacesServices;
-using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
+using UIL.ActionFilters;
 
 namespace UIL
 {
@@ -42,10 +42,16 @@ namespace UIL
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ValidationFilterAttribute>();
+            services.AddScoped<ValidateItemExistsAttribute>();
             services.AuthenticationJWT(Configuration);
-            services.AddDbContext<RepositoryContext>(options =>
-                  options.UseSqlServer(Configuration.GetConnectionString("DataContext"), b => b.MigrationsAssembly("UIL")));
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+            services.ConfigureSqlContext(Configuration);
         }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
@@ -58,7 +64,7 @@ namespace UIL
                 app.UseHsts();
             }
 
-          //  app.ConfigureExceptionHandler(logger);
+            app.ConfigureExceptionHandler(logger);
 
             app.UseHttpsRedirection();
 
